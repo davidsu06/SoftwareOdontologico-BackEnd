@@ -12,12 +12,12 @@ exports.crearPaciente = async (req, res) => {
     }
 
     // Extraer email y password
-    const {cedula, password} = req.body;
+    const {documento, password} = req.body;
 
     
     try {
         //Revisar que el paciente resgistrado sea unico
-        let paciente = await Paciente.findOne({cedula});
+        let paciente = await Paciente.findOne({documento});
 
         if (paciente) {
             return res.status(400).json({msg: 'El paciente ya existe'});
@@ -84,22 +84,27 @@ exports.modificarPaciente = async (req,res) =>{
     }
 
     //Extraer la informacion del proyecto
-    const {nombre, apellido, telefono, email, password, direccion } = req.body;
+    const {nombre, apellido, telefono, password, direccion } = req.body;
     const nuevoPaciente = {};
 
     if (nombre) {
         nuevoPaciente.nombre = nombre;
-    }else if(apellido){
+    }
+    
+    if(apellido){
         nuevoPaciente.apellido = apellido;
-    }else if(telefono){
+    }
+    
+    if(telefono){
         nuevoPaciente.telefono = telefono;
-    }else if(email){
-        nuevoPaciente.email = email;
-    }else if(password){
+    }
+    
+    if(password){
         const salt = await bcryptjs.genSalt(10);
         nuevoPaciente.password = await bcryptjs.hash(password, salt);
-        
-    }else if(direccion){
+    }
+    
+    if(direccion){
         nuevoPaciente.direccion = direccion;
     }
 

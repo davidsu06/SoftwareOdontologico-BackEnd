@@ -1,4 +1,5 @@
 const Paciente = require('../models/Paciente');
+const Personal = require('../models/Personal');
 const bcryptjs = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
@@ -10,18 +11,28 @@ exports.autenticarUsuario = async (req, res) => {
         return res.status(400).json({errores: errores.array()})
     }
 
-    //Extraer email y password 
-    const {email, password} = req.body;
+    //Extraer documento y password 
+    const {documento, password} = req.body;
 
     try {
         // Revisar que este registrado
-        let paciente = await Paciente.findOne({email})
-        if (!paciente) {
+        let paciente = await Paciente.findOne({documento});
+        let personal = await Personal.findOne({documento});
+        let tipoUsuario;
+
+        if (!paciente && !personal) {
             return res.status(400).json({msg: 'El usuario no existe'})
         }
+        else if(paciente) {
+            tipoUsuario = paciente;
+        }
+        else if(personal){
+            tipoUsuario = personal;
+        }
 
+        
         // Revisar pass
-        const passCorrecto = await bcryptjs.compare(password, paciente.password);
+        const passCorrecto =  await bcryptjs.compare(password, tipoUsuario.password);
         if (!passCorrecto) {
             return res.status(400).json({msg: 'Password incorrecto'})
         }
@@ -29,8 +40,8 @@ exports.autenticarUsuario = async (req, res) => {
         // Si todo es correcto
         // Crear  JWT
         const payload = {
-            paciente: {
-                id: paciente.id
+            tipoUsuario: {
+                id: tipoUsuario.id
             }
         };
 

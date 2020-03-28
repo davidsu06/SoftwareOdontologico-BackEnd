@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const PacientesSchema = mongoose.Schema({
-    cedula:{
-        type: Number,
+    documento:{
+        type: String,
         required: true,
         trim: true,
         unique: true
@@ -18,7 +18,7 @@ const PacientesSchema = mongoose.Schema({
         trim: true
     },
     telefono:{
-        type: Number,
+        type: String,
         required: true,
         trim: true
     }, 

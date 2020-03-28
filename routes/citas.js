@@ -1,14 +1,14 @@
 const express = require('express');
 const citasController = require('../controllers/citasController');
 const { check } = require('express-validator');
-const auth = require('../middleware/auth');
+const authCitas = require('../middleware/authCitas');
 
 const router = express.Router();
 
 // Creación de citas
 // api/citas
 router.post('/', 
-    auth,
+    authCitas,
     [
         check('fecha','La fecha es obligatoria').not().isEmpty(),
     ],

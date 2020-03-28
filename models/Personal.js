@@ -31,7 +31,7 @@ const PersonalSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    contrasena: {
+    password: {
         type: String,
         required: true,
         trim: true,

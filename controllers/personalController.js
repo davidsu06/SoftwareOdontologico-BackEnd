@@ -10,7 +10,7 @@ exports.crearPersonal = async (req, res) => {
         return res.status(400).json({ errores: errores.array() })
     }
 
-    const { documento, contrasena} = req.body;
+    const { documento, password} = req.body;
 
     try {
 
@@ -23,7 +23,7 @@ exports.crearPersonal = async (req, res) => {
         personal = new Personal(req.body);
 
         const salt = await bcryptjs.genSalt(10);
-        personal.contrasena = await bcryptjs.hash(contrasena,salt);
+        personal.password = await bcryptjs.hash(password,salt);
 
         await personal.save();
 
@@ -67,7 +67,7 @@ exports.actualizarPersonal = async (req, res) => {
         return res.status(400).json({ errores: errores.array() })
     }
 
-    const { nombre, apellido, documento, fecha_nacimiento, telefono, direccion, contrasena, cargo } = req.body;
+    const { nombre, apellido, documento, fecha_nacimiento, telefono, direccion, password, cargo } = req.body;
     const nuevoPersonal = {};
 
     if (nombre) {
@@ -94,8 +94,9 @@ exports.actualizarPersonal = async (req, res) => {
         nuevoPersonal.direccion = direccion;
     }
 
-    if (contrasena) {
-        nuevoPersonal.contrasena = contrasena;
+    if (password) {
+        const salt = await bcryptjs.genSalt(10);
+        nuevoPersonal.password = await bcryptjs.hash(password,salt);
     }
 
     if (cargo) {
@@ -108,9 +109,6 @@ exports.actualizarPersonal = async (req, res) => {
         if (!personal) {
             return res.status(404).json({ msg: 'Personal no encontrado' })
         }
-
-        const salt = await bcryptjs.genSalt(10);
-        nuevoPersonal.contrasena = await bcryptjs.hash(contrasena,salt);
 
         personal = await Personal.findByIdAndUpdate({ _id: req.params.id }, { $set: nuevoPersonal }, { new: true });
 
