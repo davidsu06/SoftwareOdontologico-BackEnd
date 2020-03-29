@@ -8,7 +8,7 @@ const router = express.Router();
 // Creación de personal
 // api/personal
 router.post('/', 
-    authPersonal,
+    //authPersonal,
     [
         check('nombre','El nombre es obligatorio').not().isEmpty(),
         check('apellido','El apellido es obligatorio').not().isEmpty(),
@@ -23,12 +23,12 @@ router.post('/',
 );
 
 router.get('/', 
-    authPersonal,
+    //authPersonal,
     personalController.consultarPersonal
 );
 
 router.put('/:id', 
-    authPersonal,
+    //authPersonal,
     [
         check('nombre','El nombre es obligatorio').optional().not().isEmpty(),
         check('apellido','El apellido es obligatorio').optional().not().isEmpty(),
@@ -43,7 +43,7 @@ router.put('/:id',
 );
 
 router.delete('/:id', 
-    authPersonal,
+    //authPersonal,
     personalController.eliminarPersonal
 );
 

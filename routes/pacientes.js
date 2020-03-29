@@ -7,7 +7,7 @@ const authPacientes = require('../middleware/authPacientes');
 //Crea pacientes
 
 router.post('/',
-    authPacientes,
+    //authPacientes,
     [
         check('documento', 'El documento es obligatorio').not().isEmpty(),
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
@@ -20,12 +20,12 @@ router.post('/',
 );
 
 router.get('/',
-    authPacientes,
+    //authPacientes,
     pacienteController.obtenerPacientes
 )
 
 router.put('/:id',
-    authPacientes,
+    //authPacientes,
     [
         check('nombre', 'El nombre es obligatorio').optional().not().isEmpty(),
         check('apellido', 'El apellido es obligatorio').optional().not().isEmpty(),
@@ -37,7 +37,7 @@ router.put('/:id',
 )
 
 router.delete('/:id',
-    authPacientes,
+    //authPacientes,
     pacienteController.eliminarPaciente
 )
 
