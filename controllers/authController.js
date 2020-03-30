@@ -56,6 +56,25 @@ exports.autenticarUsuario = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        
     }
+}
+
+exports.usuarioAutenticado = async (req, res) =>{
+    try {  
+        const personal = await Personal.findOne({"documento": req.params.documento}).select('-password');
+        const paciente = await Paciente.findOne({"documento": req.params.documento}).select('-password');
+        let tipoUsuario;
+
+        if(paciente) 
+            tipoUsuario = paciente;
+        
+        else if(personal){
+            tipoUsuario = personal;
+        }
+
+        res.json({tipoUsuario});
+
+    } catch (error) {
+        res.status(500).json({msg: 'Hubo un error'});
+    }   
 }

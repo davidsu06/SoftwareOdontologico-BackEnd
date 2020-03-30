@@ -10,12 +10,13 @@ const PersonalSchema = mongoose.Schema({
     apellido: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     documento: {
         type: String,
         required: true,
-        trim: true,       
+        trim: true,
+        unique: true      
     },
    fecha_nacimiento: {
         type: Date,
@@ -24,22 +25,22 @@ const PersonalSchema = mongoose.Schema({
     telefono: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     direccion: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     password: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     cargo: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     }
 
 });

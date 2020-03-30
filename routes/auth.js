@@ -3,14 +3,16 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 const authController = require('../controllers/authController');
+const auth = require('../middleware/auth');
 
 
 router.post('/',
-    [
-        check('documento', 'El documento es obligatorio').not().isEmpty(),       
-        check('password', 'El password debe ser minimo de 6 caracteres').isLength({ min: 6})
-    ],
     authController.autenticarUsuario
+);
+
+router.get('/:documento',
+    auth,
+    authController.usuarioAutenticado
 );
 
 module.exports = router;
