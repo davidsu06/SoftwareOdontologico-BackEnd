@@ -17,6 +17,10 @@ const PacientesSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    fnacimiento:{
+        type:Date,
+        required: true
+    },
     telefono:{
         type: String,
         required: true,

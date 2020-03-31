@@ -64,7 +64,8 @@ exports.usuarioAutenticado = async (req, res) =>{
         const personal = await Personal.findOne({"documento": req.params.documento}).select('-password');
         const paciente = await Paciente.findOne({"documento": req.params.documento}).select('-password');
         let tipoUsuario;
-
+        console.log(personal);
+        console.log(paciente);
         if(paciente) 
             tipoUsuario = paciente;
         
