@@ -4,7 +4,13 @@ const CitasSchema = mongoose.Schema({
     fecha: {
         type: Date,
         required: true,
-        trim: true
+        
+    },
+
+    hora: {
+        type: String,
+        required: true,
+        
     }
 });
 
