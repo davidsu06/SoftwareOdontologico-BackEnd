@@ -1,4 +1,5 @@
 const Citas = require('../models/Citas');
+const Paciente = require('../models/Paciente');
 // const bcryptjs = require('bcryptjs');
 const { validationResult } = require('express-validator');
 // const jwt = require('jsonwebtoken');
@@ -53,7 +54,7 @@ exports.modificarCita = async (req,res) =>{
     }
 
     //Extraer la informacion del proyecto
-    const {fecha, hora} = req.body;
+    const {fecha, hora, pacienteId} = req.body;
     const nuevaCita = {};
 
     if (fecha) {
@@ -62,6 +63,15 @@ exports.modificarCita = async (req,res) =>{
     
     if(hora){
         nuevaCita.hora = hora;
+    }
+
+    if(pacienteId){
+        let paciente = await Paciente.findOne({ pacienteId });
+        
+        if (paciente) {
+            return res.status(404).json({ msg: 'Paciente no encontrado'});
+        }
+        nuevaCita.pacienteId = pacienteId;
     }
 
     try {
@@ -74,7 +84,7 @@ exports.modificarCita = async (req,res) =>{
         }
 
         // Actualizar
-        Citas = await Citas.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaCita}, {new: true});
+        citas = await Citas.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaCita}, {new: true});
         res.json({citas});
     } catch (error) {
         console.log(error);
@@ -103,3 +113,45 @@ exports.eliminarCita = async (req, res) => {
         
     }
 }
+
+// exports.asignarCitas = async (req,res) => {
+
+//     const errores = validationResult(req);
+//     if (!errores.isEmpty()) {
+//         return res.status(400).json({ errores: errores.array() });
+//     }
+
+//     const { pacienteId, citaId } = req.body;
+    
+    
+//     try {
+
+//         let paciente = await Paciente.findById({ pacienteId });
+        
+//         if (paciente) {
+//             return res.status(404).json({ msg: 'Paciente no encontrado'});
+//         }
+
+//         const nuevaCita = {};
+//         nuevaCita.pacienteId = pacienteId;
+
+//         // revisar el ID
+//         let citas = await Citas.findById({citaId});       
+
+//         // Si la cita no existe
+//         if (!citas) {
+//             return res.status(404).json('Cita no encontrada');
+//         }
+        
+//         // Actualizar
+//         Citas = await Citas.findByIdAndUpdate({_id: citaId}, {$set: nuevaCita}, {new: true});
+//         res.json({citas});
+        
+//         res.status(400).json({ msg: "Cita creada correctamente"})
+        
+//     } catch (error) {
+//         res.status(400).json({ msg: "Error al insertar cita"})
+//     }
+
+// }
+

@@ -11,6 +11,13 @@ const CitasSchema = mongoose.Schema({
         type: String,
         required: true,
         
+    },
+
+    pacienteId: {
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'Paciente'
+        type: String,
+        trim: true,
     }
 });
 
