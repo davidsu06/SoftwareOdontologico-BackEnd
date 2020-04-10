@@ -24,6 +24,7 @@ const PORT = process.env.PORT || 4000;
 app.use('/api/pacientes', require('./routes/pacientes'));
 app.use('/api/personal', require('./routes/personal'));
 app.use('/api/citas', require('./routes/citas'));
+app.use('/api/facturas', require('./routes/facturas'));
 app.use('/api/auth', require('./routes/auth'));
 
 // Arrancar la app
