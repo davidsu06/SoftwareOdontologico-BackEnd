@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const facturasController = require('../controllers/facturasController');
+const serviciosController = require('../controllers/serviciosController');
 const { check } = require('express-validator');
 
 //Crea pacientes
@@ -8,17 +8,14 @@ const { check } = require('express-validator');
 router.post('/',
     //authFacturas,
     [
-        check('documento_paciente', 'El documento es obligatorio').not().isEmpty(),
-        check('valor', 'El valor es obligatorio').not().isEmpty(),
-        check('fecha', 'La fecha es obligatoria').not().isEmpty(),
-        check('documento_cajero', 'El cajero es obligatorio').not().isEmpty(),
+        check('nombre_servicio', 'El nombre es obligatorio').not().isEmpty(),
     ],
-    facturasController.crearFactura
+    serviciosController.crearServicio
 );
 
 router.get('/',
     //authPacientes,
-    facturasController.obtenerFacturas
+    serviciosController.obtenerServicios
 );
 /*
 router.put('/:id',

@@ -20,6 +20,11 @@ const FacturasSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true
+    },
+    tratamiento:{
+        type: String,
+        required: true,
+        trim: true
     }
 });
 
