@@ -18,33 +18,45 @@ exports.autenticarUsuario = async (req, res) => {
         // Revisar que este registrado
         let paciente = await Paciente.findOne({documento});
         let personal = await Personal.findOne({documento});
-        let tipoUsuario;
+        let payload;
 
         if (!paciente && !personal) {
             return res.status(400).json({msg: 'El usuario no existe'})
         }
-        else if(paciente) {
-            tipoUsuario = paciente;
-        }
-        else if(personal){
-            tipoUsuario = personal;
-        }
-
-        
-        // Revisar pass
-        const passCorrecto =  await bcryptjs.compare(password, tipoUsuario.password);
-        if (!passCorrecto) {
-            return res.status(400).json({msg: 'Password incorrecto'})
-        }
-
-        // Si todo es correcto
-        // Crear  JWT
-        const payload = {
-            tipoUsuario: {
-                id: tipoUsuario.id
+        else if(paciente) 
+        {
+            // Revisar pass
+            const passCorrecto =  await bcryptjs.compare(password, paciente.password);
+            if (!passCorrecto) {
+                return res.status(400).json({msg: 'Password incorrecto'})
             }
-        };
 
+            // Si todo es correcto
+            // Crear  JWT
+            payload = {
+                paciente: {
+                    id: paciente.id
+                }
+            };
+
+        }
+        else if(personal)
+        {
+            // Revisar pass
+            const passCorrecto =  await bcryptjs.compare(password, personal.password);
+            if (!passCorrecto) {
+                return res.status(400).json({msg: 'Password incorrecto'})
+            }
+
+            // Si todo es correcto
+            // Crear  JWT
+            payload = {
+                personal: {
+                    id: personal.id
+                }
+            };
+
+        }
         // Firmar JWT
         jwt.sign(payload, process.env.SECRETA, {
             expiresIn: 3600 // 1 hora
@@ -61,19 +73,25 @@ exports.autenticarUsuario = async (req, res) => {
 
 exports.usuarioAutenticado = async (req, res) =>{
     try {  
-        const personal = await Personal.findOne({"documento": req.params.documento}).select('-password');
-        const paciente = await Paciente.findOne({"documento": req.params.documento}).select('-password');
-        let tipoUsuario;
-        console.log(personal);
-        console.log(paciente);
-        if(paciente) 
-            tipoUsuario = paciente;
-        
-        else if(personal){
+        console.log(req.personal)
+        console.log(req.paciente)
+        let personal, paciente, tipoUsuario;
+        if (req.personal != undefined) {
+
+            personal = await Personal.findById(req.personal.id).select('-password');
             tipoUsuario = personal;
+            res.json({tipoUsuario});
+            console.log(personal)
+        }else if (req.paciente != undefined) {
+
+            paciente = await Paciente.findById(req.paciente.id).select('-password');
+            tipoUsuario = paciente;
+            res.json({tipoUsuario});
+            console.log(paciente)
+        }else{
+            res.json({msg: 'No existe usuario'})
         }
 
-        res.json({tipoUsuario});
 
     } catch (error) {
         res.status(500).json({msg: 'Hubo un error'});

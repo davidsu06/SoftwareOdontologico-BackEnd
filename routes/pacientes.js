@@ -24,6 +24,11 @@ router.get('/',
     pacienteController.obtenerPacientes
 )
 
+// router.get('/:documento',
+//     authPacientes,
+//     pacienteController.pacienteAutenticado
+// )
+
 router.put('/:id',
     //authPacientes,
     [

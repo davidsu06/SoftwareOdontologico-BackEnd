@@ -9,20 +9,17 @@ exports.crearCitas = async (req,res) => {
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
         return res.status(400).json({ errores: errores.array() });
-    }
-
-    const { fecha } = req.body;
-    
+    }  
     
     try {
 
-        let citas = await Citas.findOne({ fecha });
+        // let citas = await Citas.findOne({ fecha });
 
-        if (citas) {
-            return res.status(400).json({ msg: 'La cita ya existe'});
-        }
+        // if (citas) {
+        //     return res.status(400).json({ msg: 'La cita ya existe'});
+        // }
         
-        citas = new Citas(req.body);
+        let citas = new Citas(req.body);
         console.log(req.body);
         await citas.save();
         
@@ -54,7 +51,8 @@ exports.modificarCita = async (req,res) =>{
     }
 
     //Extraer la informacion del proyecto
-    const {fecha, hora, pacienteId} = req.body;
+    const {fecha, hora, pacienteId, estado} = req.body;
+
     const nuevaCita = {};
 
     if (fecha) {
@@ -72,6 +70,10 @@ exports.modificarCita = async (req,res) =>{
             return res.status(404).json({ msg: 'Paciente no encontrado'});
         }
         nuevaCita.pacienteId = pacienteId;
+    }
+
+    if (estado) {
+        nuevaCita.estado = estado;
     }
 
     try {
