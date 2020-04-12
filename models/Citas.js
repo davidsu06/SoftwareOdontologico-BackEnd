@@ -12,6 +12,12 @@ const CitasSchema = mongoose.Schema({
         required: true,
         
     },
+    
+    estado: {
+        type: String,
+        required: true,
+        trim: true
+    },
 
     pacienteId: {
         // type: mongoose.Schema.Types.ObjectId,
