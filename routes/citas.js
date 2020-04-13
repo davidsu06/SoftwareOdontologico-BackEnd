@@ -11,7 +11,9 @@ router.post('/',
     // authCitas,
     [
         check('fecha','La fecha es obligatoria').not().isEmpty(),
-        check('hora','La hora es obligatoria').not().isEmpty()
+        check('hora','La hora es obligatoria').not().isEmpty(),
+        check('estado','El estado es obligatorio').not().isEmpty(),
+        check('pacienteId','El id del paciente es obligatorio').not().isEmpty()
     ],
     citasController.crearCitas 
 );
@@ -24,8 +26,10 @@ router.get('/',
 router.put('/:id',
     //authCitas,
     [
-        check('fecha','La fecha es obligatoria').not().isEmpty(),
-        check('hora','La hora es obligatoria').not().isEmpty()
+        check('fecha','La fecha es opcional').optional().not().isEmpty(),
+        check('hora','La hora es opcional').optional().not().isEmpty(),
+        check('estado','El estado opcional').optional().not().isEmpty(),
+        check('pacienteId','El paciente es opcional').optional().not().isEmpty()
     ],
     citasController.modificarCita
 )

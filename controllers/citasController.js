@@ -23,7 +23,7 @@ exports.crearCitas = async (req,res) => {
         console.log(req.body);
         await citas.save();
         
-        res.status(400).json({ msg: "Cita creada correctamente"})
+        res.json({ msg: "Cita creada correctamente"})
         
     } catch (error) {
         res.status(400).json({ msg: "Error al insertar cita"})
@@ -49,10 +49,8 @@ exports.modificarCita = async (req,res) =>{
     if (!errores.isEmpty()) {
         return res.status(400).json({errores: errores.array()})
     }
-
     //Extraer la informacion del proyecto
     const {fecha, hora, pacienteId, estado} = req.body;
-
     const nuevaCita = {};
 
     if (fecha) {
@@ -65,7 +63,6 @@ exports.modificarCita = async (req,res) =>{
 
     if(pacienteId){
         let paciente = await Paciente.findOne({ pacienteId });
-        
         if (paciente) {
             return res.status(404).json({ msg: 'Paciente no encontrado'});
         }
@@ -84,7 +81,6 @@ exports.modificarCita = async (req,res) =>{
         if (!citas) {
             return res.status(404).json('Cita no encontrada');
         }
-
         // Actualizar
         citas = await Citas.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaCita}, {new: true});
         res.json({citas});

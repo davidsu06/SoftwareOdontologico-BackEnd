@@ -29,7 +29,11 @@ const PacientesSchema = mongoose.Schema({
     direccion:{
         type: String,
         required: true,
-    }, 
+    },
+    cargo:{
+        type: String,
+        required: true
+    } ,
     password:{
         type: String,
         required: true
