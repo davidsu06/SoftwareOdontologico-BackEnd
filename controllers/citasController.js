@@ -43,6 +43,26 @@ exports.obtenerCitas = async (req,res) =>{
     }
 }
 
+exports.citaExistentePacienteId = async (req,res) =>{
+    try {
+        const { pacienteId } = req.params;
+        const cita = await Citas.find(
+            { $and:
+                [
+                    { pacienteId: `${pacienteId}` },
+                    { estado: "Asignado"}
+                ]
+            }
+        )
+        res.json({cita});
+        
+    } catch (error) {
+        console.log(error);
+        res.statud(500).send('Hubo un error');
+        
+    }
+}
+
 exports.modificarCita = async (req,res) =>{
     //Revisar si hay errores
     const errores = validationResult(req);
