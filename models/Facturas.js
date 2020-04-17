@@ -7,7 +7,7 @@ const FacturasSchema = mongoose.Schema({
         trim: true
     }, 
     fecha:{
-        type: Date,
+        type: String,
         required: true,
         trim: true
     },

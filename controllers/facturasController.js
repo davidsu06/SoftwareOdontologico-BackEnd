@@ -13,12 +13,12 @@ exports.crearFactura = async (req, res) => {
     
     try {
         
-        // Crear paciente
+        // Crear factura
         let factura = new Factura(req.body);
         console.log(factura);
-        // Guardar paciente
+        // Guardar factura
         await factura.save();
-        res.send('factura creadacorrectamente');
+        res.send('factura creada correctamente');
     } catch (error) {
         console.log(error);
         res.status(400).send('Hubo un error');
