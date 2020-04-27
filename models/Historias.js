@@ -25,6 +25,11 @@ const HistoriaSchema = mongoose.Schema({
         type:String,
         required: true,
         trim: true
+    },
+    servicio:{
+        type:String,
+        required: true,
+        trim: true
     }
 });
 

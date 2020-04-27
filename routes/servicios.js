@@ -3,8 +3,7 @@ const router = express.Router();
 const serviciosController = require('../controllers/serviciosController');
 const { check } = require('express-validator');
 
-//Crea pacientes
-
+//Crea Servicios
 router.post('/',
     //authFacturas,
     [
@@ -13,27 +12,22 @@ router.post('/',
     serviciosController.crearServicio
 );
 
+//Consulta Servicios
 router.get('/',
-    //authPacientes,
     serviciosController.obtenerServicios
 );
-/*
+
+//Modifica Servicios
 router.put('/:id',
-    //authPacientes,
     [
-        check('nombre', 'El nombre es obligatorio').optional().not().isEmpty(),
-        check('apellido', 'El apellido es obligatorio').optional().not().isEmpty(),
-        check('telefono', 'El telefono es obligatorio').optional().not().isEmpty(),
-        check('direccion', 'La direccion es obligatoria').optional().not().isEmpty(),
-        check('password', 'El password debe ser minimo de 6 caracteres').optional().isLength({ min: 6})
+        check('nombre_servicio', 'El nombre es obligatorio').optional().not().isEmpty()  
     ],
-    pacienteController.modificarPaciente
+    serviciosController.modificarServicio
 )
 
+//Elimina Servicio
 router.delete('/:id',
-    //authPacientes,
-    pacienteController.eliminarPaciente
+    serviciosController.eliminarServicio
 )
-*/
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const Citas = require('../models/Citas');
+const Servicio = require('../models/Servicios');
 const Paciente = require('../models/Paciente');
 const Historia = require('../models/Historias');
 const Personal = require('../models/Personal');
@@ -46,7 +46,7 @@ exports.modificarHistoria = async (req,res) =>{
     }
 
     //Extraer la informacion del proyecto
-    const { pacienteId, personalId, fecha, hora, descripcion } = req.body;
+    const { pacienteId, personalId, fecha, hora, descripcion, servicio } = req.body;
     const nuevaHistoria = {};
 
     if(pacienteId){
@@ -73,6 +73,14 @@ exports.modificarHistoria = async (req,res) =>{
     }
     if(descripcion){
         nuevaHistoria.descripcion = descripcion;
+    }
+    if(servicio){
+        let servicioNom = await Servicio.findOne({ servicio });
+        
+        if (servicioNom) {
+            return res.status(404).json({ msg: 'Servicio no encontrado'});
+        }
+        nuevaHistoria.servicio = servicio;
     }
     
     try {
