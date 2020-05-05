@@ -7,7 +7,9 @@ const { check } = require('express-validator');
 router.post('/',
     //authFacturas,
     [
-        check('nombre_servicio', 'El nombre es obligatorio').not().isEmpty(),
+        check('nombre_servicio', 'El nombre del servicio es obligatorio').not().isEmpty(),
+        check('precioTotal', 'El precio del servicio es obligatorio').not().isEmpty(),
+        check('cantidadCitas', 'La Cantidad de citas es obligatoria').not().isEmpty()
     ],
     serviciosController.crearServicio
 );
@@ -20,7 +22,9 @@ router.get('/',
 //Modifica Servicios
 router.put('/:id',
     [
-        check('nombre_servicio', 'El nombre es obligatorio').optional().not().isEmpty()  
+        check('nombre_servicio', 'El nombre del servicio es obligatorio').optional().not().isEmpty(),
+        check('precioTotal', 'El precio del servicio es obligatorio').optional().not().isEmpty(),
+        check('cantidadCitas', 'La Cantidad de citas es obligatoria').optional().not().isEmpty()  
     ],
     serviciosController.modificarServicio
 )

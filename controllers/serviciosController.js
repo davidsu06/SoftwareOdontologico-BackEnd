@@ -48,18 +48,26 @@ exports.modificarServicio = async (req,res) =>{
     }
 
     //Extraer la informacion del Servicio
-    const {nombre_servicio} = req.body;
+    const {nombre_servicio, precioTotal, cantidadCitas} = req.body;
     const nuevoServicio = {};
 
     if (nombre_servicio) {
         nuevoServicio.nombre_servicio = nombre_servicio;
     }
 
+    if (precioTotal) {
+        nuevoServicio.precioTotal = precioTotal;
+    }
+
+    if (cantidadCitas) {
+        nuevoServicio.cantidadCitas = cantidadCitas;
+    }
+
     try {
         // revisar el ID
         let servicio = await Servicios.findById(req.params.id);        
 
-        // Si el paciente existe
+        // Si el servicio existe
         if (!servicio) {
             return res.status(404).json('Servicio no encontrado');
         }
@@ -80,7 +88,7 @@ exports.eliminarServicio = async (req, res) => {
         // revisar el ID
         let servicio = await Servicios.findById(req.params.id);        
 
-        // Si el paciente existe
+        // Si el Servicio existe
         if (!servicio) {
             return res.status(404).json('Servicio no encontrado');
         }

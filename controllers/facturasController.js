@@ -1,4 +1,6 @@
 const Factura = require('../models/Facturas');
+const Paciente = require('../models/Paciente');
+const Personal = require('../models/Personal');
 const bcryptjs = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
@@ -40,10 +42,9 @@ exports.obtenerFacturas = async (req,res) =>{
         
     }
 }
-/*
-// Modificar paciente
 
-exports.modificarPaciente = async (req,res) =>{
+// Modificar estado de la factura
+exports.modificarEstadoFactura = async (req,res) =>{
     //Revisar si hay errores
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
@@ -51,67 +52,56 @@ exports.modificarPaciente = async (req,res) =>{
     }
 
     //Extraer la informacion del proyecto
-    const {nombre, apellido, telefono, password, direccion } = req.body;
-    const nuevoPaciente = {};
+    const { documento_paciente, nombre_paciente, valor, fecha, documento_cajero, nombre_cajero, estado } = req.body;
+    const nuevaFactura = {};
 
-    if (nombre) {
-        nuevoPaciente.nombre = nombre;
+    if(documento_paciente && nombre_paciente){
+        let paciente = await Paciente.findOne({ documento_paciente });
+        
+        if (paciente) {
+            return res.status(404).json({ msg: 'Paciente no encontrado'});
+        }
+        nuevaFactura.documento_paciente = documento_paciente;
+        nuevaFactura.nombre_paciente = nombre_paciente;
     }
-    
-    if(apellido){
-        nuevoPaciente.apellido = apellido;
+
+    if(valor){
+        nuevaFactura.valor = valor;
     }
-    
-    if(telefono){
-        nuevoPaciente.telefono = telefono;
+
+    if(fecha){
+        nuevaFactura.fecha = fecha;
     }
-    
-    if(password){
-        const salt = await bcryptjs.genSalt(10);
-        nuevoPaciente.password = await bcryptjs.hash(password, salt);
+
+    if(documento_cajero && nombre_cajero){
+        let personal = await Personal.findOne({ documento_cajero });
+        
+        if (personal) {
+            return res.status(404).json({ msg: 'Personal no encontrado'});
+        }
+        nuevaFactura.documento_cajero = documento_cajero;
+        nuevaFactura.nombre_cajero = nombre_cajero;
     }
-    
-    if(direccion){
-        nuevoPaciente.direccion = direccion;
+
+    if(estado){
+        nuevaFactura.estado = estado;
     }
 
     try {
         // revisar el ID
-        let paciente = await Paciente.findById(req.params.id);        
+        let factura = await Factura.findById(req.params.id);       
 
-        // Si el paciente existe
-        if (!paciente) {
-            return res.status(404).json('Paciente no encontrado');
+        // Si la Historia Clínca no existe
+        if (!factura) {
+            return res.status(404).json('Factura no encontrada');
         }
 
         // Actualizar
-        paciente = await Paciente.findByIdAndUpdate({_id: req.params.id}, {$set: nuevoPaciente}, {new: true});
-        res.json({paciente});
+        factura = await Factura.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaFactura}, {new: true});
+        res.json({factura});
     } catch (error) {
         console.log(error);
         res.status(500).send('Error en el servidor');
         
     }
 }
-
-// Eliminar paciente
-
-exports.eliminarPaciente = async (req, res) => {
-    try {
-        // revisar el ID
-        let paciente = await Paciente.findById(req.params.id);        
-
-        // Si el paciente existe
-        if (!paciente) {
-            return res.status(404).json('Paciente no encontrado');
-        }
-
-        // Eliminar
-        await Paciente.findByIdAndRemove({_id: req.params.id});
-        res.json({msg: 'Paciente eliminado'})
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Error en el servidor');
-        
-    }
-}*/

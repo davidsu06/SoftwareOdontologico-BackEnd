@@ -27,6 +27,7 @@ app.use('/api/citas', require('./routes/citas'));
 app.use('/api/historias', require('./routes/historias'));
 app.use('/api/facturas', require('./routes/facturas'));
 app.use('/api/servicios', require('./routes/servicios'));
+app.use('/api/tratamientos', require('./routes/tratamiento'));
 app.use('/api/auth', require('./routes/auth'));
 
 // Arrancar la app

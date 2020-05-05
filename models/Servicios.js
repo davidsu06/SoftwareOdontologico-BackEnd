@@ -6,8 +6,16 @@ const ServiciosSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    
-
+    precioTotal: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    cantidadCitas: {
+        type: Number,
+        required: true,
+        trim: true
+    }
 });
 
 module.exports = mongoose.model('servicios',ServiciosSchema);
