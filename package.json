@@ -1,13 +1,13 @@
 {
-  "name": "merntaskservidor",
+  "name": "softwareodontologico",
   "version": "1.0.0",
-  "description": "MERN API para MERN TASKS",
+  "description": "Software Odontologico",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "dev": "nodemon ."
   },
-  "author": "Juan Pablo De la torre",
+  "author": "Jojan, David, Juan, Jeferson ",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.2"

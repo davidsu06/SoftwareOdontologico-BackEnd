@@ -31,6 +31,6 @@ app.use('/api/tratamientos', require('./routes/tratamiento'));
 app.use('/api/auth', require('./routes/auth'));
 
 // Arrancar la app
-app.listen(PORT,()=>{
-    console.log(`El servidor está corriedo en el puerto ${PORT}`);
-})
+app.listen(port, '0.0.0.0', () => {
+    console.log(`El servidor esta funcionando en el puerto ${port}`);
+});
