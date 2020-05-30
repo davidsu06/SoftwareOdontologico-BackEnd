@@ -73,21 +73,17 @@ exports.autenticarUsuario = async (req, res) => {
 
 exports.usuarioAutenticado = async (req, res) =>{
     try {  
-        console.log(req.personal)
-        console.log(req.paciente)
         let personal, paciente, tipoUsuario;
         if (req.personal != undefined) {
 
             personal = await Personal.findById(req.personal.id).select('-password');
             tipoUsuario = personal;
             res.json({tipoUsuario});
-            console.log(personal)
         }else if (req.paciente != undefined) {
 
             paciente = await Paciente.findById(req.paciente.id).select('-password');
             tipoUsuario = paciente;
             res.json({tipoUsuario});
-            console.log(paciente)
         }else{
             res.json({msg: 'No existe usuario'})
         }

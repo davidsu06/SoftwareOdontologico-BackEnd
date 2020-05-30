@@ -12,7 +12,6 @@ exports.iniciarTratamiento = async (req,res) => {
     
     try {
         let tratamiento = new Tratamiento(req.body);
-        console.log(req.body);
         await tratamiento.save();
         
         res.json({ msg: "Tratamiento iniciado correctamente"})

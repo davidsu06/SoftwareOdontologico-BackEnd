@@ -1,7 +1,5 @@
 const Servicios = require('../models/Servicios');
-const bcryptjs = require('bcryptjs');
 const { validationResult } = require('express-validator');
-
 
 exports.crearServicio = async (req, res) => {
 
@@ -14,7 +12,7 @@ exports.crearServicio = async (req, res) => {
     try {
         // Crear Servicio
         let servicio = new Servicios(req.body);
-        console.log(servicio);
+
         // Guardar Servicio
         await servicio.save();
         res.send('servicio creado correctamente');

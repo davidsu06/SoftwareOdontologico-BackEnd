@@ -1,7 +1,6 @@
 const Factura = require('../models/Facturas');
 const Paciente = require('../models/Paciente');
 const Personal = require('../models/Personal');
-const bcryptjs = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
 
@@ -17,7 +16,7 @@ exports.crearFactura = async (req, res) => {
         
         // Crear factura
         let factura = new Factura(req.body);
-        console.log(factura);
+
         // Guardar factura
         await factura.save();
         res.send('factura creada correctamente');

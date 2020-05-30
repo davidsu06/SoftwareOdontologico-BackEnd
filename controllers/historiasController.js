@@ -11,11 +11,8 @@ exports.crearHistoria = async (req,res) => {
         return res.status(400).json({ errores: errores.array() });
     }
 
-    //const { pacienteId, personalId, descripcion, hora, fecha } = req.body;
-    
     try {
         let historias = new Historia(req.body);
-        console.log(req.body);
         await historias.save();
         
         res.json({ msg: "Historia Clínica creada correctamente"})

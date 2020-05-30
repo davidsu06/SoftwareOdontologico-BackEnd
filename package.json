@@ -1,13 +1,13 @@
 {
   "name": "softwareodontologico",
   "version": "1.0.0",
-  "description": "Software Odontologico",
+  "description": "Software para consultorio odontologico",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "dev": "nodemon ."
   },
-  "author": "Jojan, David, Juan, Jeferson ",
+  "author": "Jojan Santiago Guzman Sierra, David Soto Uribe, Juan Jose Gonzalez Davila, Jeferson Echavarria Balzan ",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.2"

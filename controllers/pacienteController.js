@@ -76,15 +76,10 @@ exports.obtenerPacientes = async (req,res) =>{
 
 exports.pacienteAutenticado = async (req, res) =>{
     try {  
-        console.log('Parámetros: ' + req.params)
-        console.log('Request: ' + req.paciente)
-        console.log('antes')
+        
         const paciente = await Paciente.findById({"documento": req.paciente.id}).select('-password');
-        console.log('despues')
-        console.log(paciente)
         res.json({paciente});
        
-
     } catch (error) {
         res.status(500).json({msg: 'Hubo un error'});
     }   
