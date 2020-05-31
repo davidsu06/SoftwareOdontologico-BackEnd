@@ -28,29 +28,30 @@ exports.obtenerCitas = async (req,res) =>{
         res.json({citas});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
+        // console.log(error);
+        res.status(500).send('Hubo un error');
         
     }
 }
 
 exports.citaExistentePacienteId = async (req,res) =>{
     try {
-        const { pacienteId } = req.params;
+        // console.log(req.params);
+        const {pacienteId, tipo} = req.params
+
         const cita = await Citas.find(
             { $and:
                 [
                     { pacienteId: `${pacienteId}` },
-                    { estado: "Asignado"}
+                    { estado: "Asignado" },
+                    { tipo: `${tipo}`} 
                 ]
             }
         )
         res.json({cita});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
-        
+        res.status(500).send('Hubo un error');   
     }
 }
 
@@ -61,7 +62,7 @@ exports.modificarCita = async (req,res) =>{
         return res.status(400).json({errores: errores.array()})
     }
     //Extraer la informacion del proyecto
-    const {fecha, hora, pacienteId, estado} = req.body;
+    const {fecha, hora, pacienteId, estado, tipo} = req.body;
     const nuevaCita = {};
 
     if (fecha) {
@@ -84,6 +85,10 @@ exports.modificarCita = async (req,res) =>{
         nuevaCita.estado = estado;
     }
 
+    if (tipo) {
+        nuevaCita.tipo = tipo;
+    }
+
     try {
         // revisar el ID
         let citas = await Citas.findById(req.params.id);       
@@ -96,9 +101,7 @@ exports.modificarCita = async (req,res) =>{
         citas = await Citas.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaCita}, {new: true});
         res.json({citas});
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
-        
     }
 }
 
@@ -117,9 +120,7 @@ exports.eliminarCita = async (req, res) => {
         await Citas.findByIdAndRemove({_id: req.params.id});
         res.json({msg: 'Cita eliminada'})
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
-        
     }
 }
 

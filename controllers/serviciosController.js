@@ -17,9 +17,7 @@ exports.crearServicio = async (req, res) => {
         await servicio.save();
         res.send('servicio creado correctamente');
     } catch (error) {
-        console.log(error);
         res.status(400).send('Hubo un error');
-        
     }
     res.json(true);
 }
@@ -31,9 +29,7 @@ exports.obtenerServicios = async (req,res) =>{
         res.json({servicio});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
-        
+        res.status(500).send('Hubo un error');
     }
 }
 
@@ -74,9 +70,7 @@ exports.modificarServicio = async (req,res) =>{
         servicio = await Servicios.findByIdAndUpdate({_id: req.params.id}, {$set: nuevoServicio}, {new: true});
         res.json({servicio});
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error en el servidor');
-        
+        res.status(500).send('Error en el servidor');  
     }
 }
 
@@ -95,8 +89,6 @@ exports.eliminarServicio = async (req, res) => {
         await Servicios.findByIdAndRemove({_id: req.params.id});
         res.json({msg: 'Servicio eliminado'})
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
-        
     }
 }

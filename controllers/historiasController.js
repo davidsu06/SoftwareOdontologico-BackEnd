@@ -29,9 +29,7 @@ exports.obtenerHistorias = async (req,res) =>{
         res.json({historias});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
-        
+        res.status(500).send('Hubo un error');
     }
 }
 
@@ -93,8 +91,6 @@ exports.modificarHistoria = async (req,res) =>{
         historias = await Historia.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaHistoria}, {new: true});
         res.json({historias});
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error en el servidor');
-        
+        res.status(500).send('Error en el servidor');    
     }
 }

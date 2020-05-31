@@ -43,7 +43,6 @@ exports.crearPersonal = async (req, res) => {
         res.json({ msg: 'Personal creado correctamente'}); 
 
     } catch (error) {
-        console.log(error);
         res.status(400).send('Hubo un error');
     }
     

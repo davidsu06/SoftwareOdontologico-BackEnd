@@ -23,7 +23,7 @@ router.get('/',
     citasController.obtenerCitas
 )
 
-router.get('/:pacienteId',
+router.get('/:pacienteId/:tipo',
     // authCitas,
     citasController.citaExistentePacienteId
 )

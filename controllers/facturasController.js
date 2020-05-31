@@ -21,7 +21,6 @@ exports.crearFactura = async (req, res) => {
         await factura.save();
         res.send('factura creada correctamente');
     } catch (error) {
-        console.log(error);
         res.status(400).send('Hubo un error');
         
     }
@@ -36,9 +35,7 @@ exports.obtenerFacturas = async (req,res) =>{
         res.json({facturas});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
-        
+        res.status(500).send('Hubo un error');
     }
 }
 
@@ -99,7 +96,6 @@ exports.modificarEstadoFactura = async (req,res) =>{
         factura = await Factura.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaFactura}, {new: true});
         res.json({factura});
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
         
     }

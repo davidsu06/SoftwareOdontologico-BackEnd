@@ -50,10 +50,7 @@ exports.crearPaciente = async (req, res) => {
             res.json({token});
         });
 
-        
-        
     } catch (error) {
-        console.log(error);
         res.status(400).send('Hubo un error');
         
     }
@@ -68,9 +65,7 @@ exports.obtenerPacientes = async (req,res) =>{
         res.json({pacientes});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
-        
+        res.status(500).send('Hubo un error');
     }
 }
 
@@ -132,9 +127,7 @@ exports.modificarPaciente = async (req,res) =>{
         paciente = await Paciente.findByIdAndUpdate({_id: req.params.id}, {$set: nuevoPaciente}, {new: true});
         res.json({paciente});
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error en el servidor');
-        
+        res.status(500).send('Error en el servidor');   
     }
 }
 
@@ -154,8 +147,6 @@ exports.eliminarPaciente = async (req, res) => {
         await Paciente.findByIdAndRemove({_id: req.params.id});
         res.json({msg: 'Paciente eliminado'})
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
-        
     }
 }

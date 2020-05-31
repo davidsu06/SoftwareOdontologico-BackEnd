@@ -28,9 +28,7 @@ exports.obtenerTratamientos = async (req,res) =>{
         res.json({tratamientos});
         
     } catch (error) {
-        console.log(error);
-        res.statud(500).send('Hubo un error');
-        
+        res.status(500).send('Hubo un error'); 
     }
 }
 
@@ -94,9 +92,7 @@ exports.actualizarTratamiento = async (req,res) =>{
         tratamiento = await Tratamiento.findByIdAndUpdate({_id: req.params.id}, {$set: nuevoTratamiento}, {new: true});
         res.json({tratamiento});
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
-        
     }
 }
 
@@ -114,8 +110,6 @@ exports.eliminarTratamiento = async (req, res) => {
         await Tratamiento.findByIdAndRemove({_id: req.params.id});
         res.json({msg: 'Tratamiento eliminado'})
     } catch (error) {
-        console.log(error);
         res.status(500).send('Error en el servidor');
-        
     }
 }
