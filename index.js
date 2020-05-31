@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use(express.json({ extended: true}));
 
-const PORT = process.env.PORT || 4000;
+const port = process.env.port || 4000;
 
 // app.get('/',(req,res)=>{
 //     res.send('Hola mundo')
@@ -31,6 +31,6 @@ app.use('/api/tratamientos', require('./routes/tratamiento'));
 app.use('/api/auth', require('./routes/auth'));
 
 // Arrancar la app
-app.listen(PORT, ()=>{
-    console.log(`El servidor está corriedo en el puerto ${PORT}`);
+app.listen(port, '0.0.0.0', ()=>{
+    console.log(`El servidor está corriedo en el puerto ${port}`);
 });
