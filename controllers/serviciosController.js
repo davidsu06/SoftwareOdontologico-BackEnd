@@ -2,7 +2,6 @@ const Servicios = require('../models/Servicios');
 const { validationResult } = require('express-validator');
 
 exports.crearServicio = async (req, res) => {
-
     //Revisar si hay errores
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
@@ -42,7 +41,7 @@ exports.modificarServicio = async (req,res) =>{
     }
 
     //Extraer la informacion del Servicio
-    const {nombre_servicio, precioTotal, cantidadCitas} = req.body;
+    const {nombre_servicio, precioTotal, cantidadCitas, imagen} = req.body;
     const nuevoServicio = {};
 
     if (nombre_servicio) {
@@ -55,6 +54,10 @@ exports.modificarServicio = async (req,res) =>{
 
     if (cantidadCitas) {
         nuevoServicio.cantidadCitas = cantidadCitas;
+    }
+
+    if (cantidadCitas) {
+        nuevoServicio.imagen = imagen;
     }
 
     try {

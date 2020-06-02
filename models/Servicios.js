@@ -15,6 +15,11 @@ const ServiciosSchema = mongoose.Schema({
         type: Number,
         required: true,
         trim: true
+    },
+    imagen: {
+        type: String,
+        required: true,
+        trim: true
     }
 });
 

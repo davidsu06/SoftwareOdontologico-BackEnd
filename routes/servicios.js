@@ -9,7 +9,8 @@ router.post('/',
     [
         check('nombre_servicio', 'El nombre del servicio es obligatorio').not().isEmpty(),
         check('precioTotal', 'El precio del servicio es obligatorio').not().isEmpty(),
-        check('cantidadCitas', 'La Cantidad de citas es obligatoria').not().isEmpty()
+        check('cantidadCitas', 'La Cantidad de citas es obligatoria').not().isEmpty(),
+        check('imagen', 'El link de la imagen es obligatorio').not().isEmpty()
     ],
     serviciosController.crearServicio
 );
@@ -24,7 +25,8 @@ router.put('/:id',
     [
         check('nombre_servicio', 'El nombre del servicio es obligatorio').optional().not().isEmpty(),
         check('precioTotal', 'El precio del servicio es obligatorio').optional().not().isEmpty(),
-        check('cantidadCitas', 'La Cantidad de citas es obligatoria').optional().not().isEmpty()  
+        check('cantidadCitas', 'La Cantidad de citas es obligatoria').optional().not().isEmpty(),
+        check('imagen', 'El link de la imagen es obligatorio').not().isEmpty()  
     ],
     serviciosController.modificarServicio
 )

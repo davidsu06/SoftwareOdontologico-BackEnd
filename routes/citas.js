@@ -39,8 +39,6 @@ router.put('/:id',
     citasController.modificarCita
 )
 
-
-
 router.delete('/:id',
     //authCitas,
     citasController.eliminarCita
