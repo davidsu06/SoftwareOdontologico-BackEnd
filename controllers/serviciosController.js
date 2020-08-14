@@ -13,7 +13,7 @@ exports.crearServicio = async (req, res) => {
         let servicio = new Servicios(req.body);
 
         // Guardar Servicio
-        await servicio.save();
+        await servicio.save()
         res.send('servicio creado correctamente');
     } catch (error) {
         res.status(400).send('Hubo un error');
@@ -89,7 +89,7 @@ exports.eliminarServicio = async (req, res) => {
         }
 
         // Eliminar
-        await Servicios.findByIdAndRemove({_id: req.params.id});
+        await Servicios.findByIdAndRemove({_id: req.params.id})
         res.json({msg: 'Servicio eliminado'})
     } catch (error) {
         res.status(500).send('Error en el servidor');

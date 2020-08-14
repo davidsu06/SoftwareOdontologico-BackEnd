@@ -1,7 +1,7 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
 const conectarDB = require('./config/db');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 //Creación del servidor
 const app = express();
@@ -12,8 +12,10 @@ conectarDB();
 //Habilitar cors
 app.use(cors());
 
-//Habilitar fileUpload
-app.use(fileUpload());
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
 
 app.use(express.json({ extended: true}));
 
@@ -33,7 +35,7 @@ app.use('/api/facturas', require('./routes/facturas'));
 app.use('/api/servicios', require('./routes/servicios'));
 app.use('/api/tratamientos', require('./routes/tratamiento'));
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/archivos', require('./routes/archivos'));
+app.use('/api/cloudinary', require('./routes/cloudinary'));
 
 // Arrancar la app
 app.listen(PORT, '0.0.0.0', ()=>{
