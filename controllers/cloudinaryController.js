@@ -21,7 +21,7 @@ exports.guardarArchivo = async (req, res) => {
             image = req.body
         }
         
-        await cloudinary.uploader.upload(image.tempFilePath || `data:${image.type}/${image.format};base64,${image.base64}`, function(error, result) {
+        await cloudinary.uploader.upload(image.tempFilePath || `data:${image.type}/${image.format};base64,${image.base64}`, { folder: 'odontoapp/' }, function(error, result) {
             if(result){
                 return res.json({result})
             }
