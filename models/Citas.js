@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CitasSchema = mongoose.Schema({
+const CitasSchema = new mongoose.Schema({
     fecha: {
         type: Date,
         required: true,

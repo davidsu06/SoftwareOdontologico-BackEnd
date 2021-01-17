@@ -24,7 +24,7 @@ exports.crearFactura = async (req, res) => {
         res.status(400).send('Hubo un error');
         
     }
-    res.json(true);
+    // return res.json(true);
 }
 
 // Obtener pacientes
@@ -32,10 +32,20 @@ exports.crearFactura = async (req, res) => {
 exports.obtenerFacturas = async (req,res) =>{
     try {
         const facturas = await Factura.find();
-        res.json({facturas});
+        return res.json({facturas});
         
     } catch (error) {
-        res.status(500).send('Hubo un error');
+        return res.status(500).send('Hubo un error');
+    }
+}
+
+exports.obtenerFactura = async (req,res) =>{
+    try {
+        const factura = await Factura.findById(req.params.id);
+        return res.json({ factura });
+        
+    } catch (error) {
+        return res.status(500).send('Hubo un error');
     }
 }
 
@@ -96,7 +106,7 @@ exports.modificarEstadoFactura = async (req,res) =>{
         factura = await Factura.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaFactura}, {new: true});
         res.json({factura});
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
         
     }
 }

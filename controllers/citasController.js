@@ -3,24 +3,21 @@ const Paciente = require('../models/Paciente');
 const { validationResult } = require('express-validator');
 
 exports.crearCitas = async (req,res) => {
-
     const errores = validationResult(req);
     if (!errores.isEmpty()) {
         return res.status(400).json({ errores: errores.array() });
     }  
     
     try {
-
         let citas = new Citas(req.body);
         await citas.save();
         
-        res.json({ msg: "Cita creada correctamente"})
+        return res.json({ msg: "Cita creada correctamente"})
         
     } catch (error) {
         res.status(400).json({ msg: "Error al insertar cita"})
     }
-
-}
+};
 
 exports.obtenerCitas = async (req,res) =>{
     try {
@@ -29,10 +26,10 @@ exports.obtenerCitas = async (req,res) =>{
         
     } catch (error) {
         // console.log(error);
-        res.status(500).send('Hubo un error');
+        return res.status(500).send('Hubo un error');
         
     }
-}
+};
 
 exports.citaExistentePacienteId = async (req,res) =>{
     try {
@@ -48,12 +45,12 @@ exports.citaExistentePacienteId = async (req,res) =>{
                 ]
             }
         )
-        res.json({cita});
+        return res.json({cita});
         
     } catch (error) {
-        res.status(500).send('Hubo un error');   
+        return res.status(500).send('Hubo un error');   
     }
-}
+};
 
 exports.modificarCita = async (req,res) =>{
     //Revisar si hay errores
@@ -99,16 +96,15 @@ exports.modificarCita = async (req,res) =>{
         }
         // Actualizar
         citas = await Citas.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaCita}, {new: true});
-        res.json({citas});
+        return res.json({citas});
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
     }
-}
+};
 
 exports.eliminarCita = async (req, res) => {
     try {
         // revisar el ID
-       
         let citas = await Citas.findById(req.params.id);         
 
         // Si el paciente existe
@@ -118,11 +114,11 @@ exports.eliminarCita = async (req, res) => {
 
         // Eliminar
         await Citas.findByIdAndRemove({_id: req.params.id});
-        res.json({msg: 'Cita eliminada'})
+        return res.json({msg: 'Cita eliminada'})
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
     }
-}
+};
 
 
 

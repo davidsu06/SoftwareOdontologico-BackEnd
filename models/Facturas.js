@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const FacturasSchema = mongoose.Schema({
+const FacturasSchema = new mongoose.Schema({
     valor:{
         type: String,
         required: true,

@@ -31,7 +31,7 @@ exports.guardarArchivo = async (req, res) => {
         }).catch(error => console.log(error));
         
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
     }
 }
 
@@ -47,7 +47,7 @@ exports.eliminarArchivo = async (req, res) =>{
         }).catch(error => console.log(error));
 
     } catch (error) {
-        res.send({msg: 'Hubo un error'})
+        return res.send({msg: 'Hubo un error'})
     }
 }
 

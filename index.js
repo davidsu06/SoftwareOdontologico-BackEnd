@@ -17,14 +17,9 @@ app.use(fileUpload({
     tempFileDir : '/tmp/'
 }));
 
-app.use(express.json({ extended: true}));
+app.use(express.json({ extended: true }));
 
 const PORT = process.env.PORT || 4000;
-
-// app.get('/',(req,res)=>{
-//     res.send('Hola mundo')
-// })
-
 
 // Rutas
 app.use('/api/pacientes', require('./routes/pacientes'));
@@ -38,6 +33,6 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/cloudinary', require('./routes/cloudinary'));
 
 // Arrancar la app
-app.listen(PORT, '0.0.0.0', ()=>{
+app.listen(PORT, '0.0.0.0', ()=> {
     console.log(`El servidor está corriedo en el puerto ${PORT}`);
 });

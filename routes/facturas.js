@@ -23,6 +23,11 @@ router.get('/',
     facturasController.obtenerFacturas
 );
 
+// Obtención de una factura determinada
+router.get('/:id',
+    facturasController.obtenerFactura
+);
+
 // Modifica el estado de la factura
 router.put('/:id',
     [

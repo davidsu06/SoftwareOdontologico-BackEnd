@@ -40,7 +40,7 @@ exports.crearPersonal = async (req, res) => {
             if(error) throw error;
             //res.json({ token });
         });
-        res.json({ msg: 'Personal creado correctamente'}); 
+        return res.json({ msg: 'Personal creado correctamente'}); 
 
     } catch (error) {
         res.status(400).send('Hubo un error');
@@ -52,10 +52,10 @@ exports.consultarPersonal = async (req, res) => {
 
     try {
         const personal = await Personal.find();
-        res.json({ personal });
+        return res.json({ personal });
         
     } catch (error) {
-        res.status(400).json({ msg: 'Error al consultar personal' });
+        return res.status(400).json({ msg: 'Error al consultar personal' });
     }
 }
 
@@ -112,11 +112,11 @@ exports.actualizarPersonal = async (req, res) => {
         personal = await Personal.findByIdAndUpdate({ _id: req.params.id }, { $set: nuevoPersonal }, { new: true });
 
 
-        res.json({ personal });
+        return res.json({ personal });
         
 
     } catch (error) {
-        res.status(500).json({ msg: 'Error al actualizar personal' }); //Error de servidor
+        return res.status(500).json({ msg: 'Error al actualizar personal' }); //Error de servidor
     }
 }
 
@@ -131,10 +131,10 @@ exports.eliminarPersonal = async (req, res) => {
 
         await Personal.findByIdAndRemove({_id: req.params.id});
 
-        res.json({ msg: 'Personal eliminado exitosamente' });
+        return res.json({ msg: 'Personal eliminado exitosamente' });
 
 
     } catch (error) {
-        res.status(400).json({ msg: 'Error al eliminar' });
+        return res.status(400).json({ msg: 'Error al eliminar' });
     }
 }

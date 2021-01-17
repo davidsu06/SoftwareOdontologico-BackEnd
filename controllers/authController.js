@@ -23,7 +23,7 @@ exports.autenticarUsuario = async (req, res) => {
         if (!paciente && !personal) {
             return res.status(400).json({msg: 'El usuario no existe'})
         }
-        else if(paciente) 
+        else if (paciente) 
         {
             // Revisar pass
             const passCorrecto =  await bcryptjs.compare(password, paciente.password);
@@ -64,12 +64,12 @@ exports.autenticarUsuario = async (req, res) => {
             if (error) throw error;
 
             // Mensaje
-            res.json({token});
+            return res.json({token});
         });
     } catch (error) {
-        res.status(500).json({msg: 'Hubo un error'});
+        return res.status(500).json({msg: 'Hubo un error'});
     }
-}
+};
 
 exports.usuarioAutenticado = async (req, res) =>{
     try {  
@@ -78,18 +78,18 @@ exports.usuarioAutenticado = async (req, res) =>{
 
             personal = await Personal.findById(req.personal.id).select('-password');
             tipoUsuario = personal;
-            res.json({tipoUsuario});
+            return res.json({tipoUsuario});
         }else if (req.paciente != undefined) {
 
             paciente = await Paciente.findById(req.paciente.id).select('-password');
             tipoUsuario = paciente;
-            res.json({tipoUsuario});
+            return res.json({tipoUsuario});
         }else{
-            res.json({msg: 'No existe usuario'})
+            return res.json({msg: 'No existe usuario'})
         }
 
 
     } catch (error) {
-        res.status(500).json({msg: 'Hubo un error'});
+        return res.status(500).json({msg: 'Hubo un error'});
     }   
-}
+};

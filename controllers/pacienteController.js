@@ -47,7 +47,7 @@ exports.crearPaciente = async (req, res) => {
             if (error) throw error;
 
             // Mensaje
-            res.json({token});
+            return res.json({token});
         });
 
     } catch (error) {
@@ -62,10 +62,10 @@ exports.crearPaciente = async (req, res) => {
 exports.obtenerPacientes = async (req,res) =>{
     try {
         const pacientes = await Paciente.find({});
-        res.json({pacientes});
+        return res.json({pacientes});
         
     } catch (error) {
-        res.status(500).send('Hubo un error');
+        return res.status(500).send('Hubo un error');
     }
 }
 
@@ -73,10 +73,10 @@ exports.pacienteAutenticado = async (req, res) =>{
     try {  
         
         const paciente = await Paciente.findById({"documento": req.paciente.id}).select('-password');
-        res.json({paciente});
+        return res.json({paciente});
        
     } catch (error) {
-        res.status(500).json({msg: 'Hubo un error'});
+        return res.status(500).json({msg: 'Hubo un error'});
     }   
 }
 
@@ -125,9 +125,9 @@ exports.modificarPaciente = async (req,res) =>{
 
         // Actualizar
         paciente = await Paciente.findByIdAndUpdate({_id: req.params.id}, {$set: nuevoPaciente}, {new: true});
-        res.json({paciente});
+        return res.json({paciente});
     } catch (error) {
-        res.status(500).send('Error en el servidor');   
+        return res.status(500).send('Error en el servidor');   
     }
 }
 
@@ -145,8 +145,8 @@ exports.eliminarPaciente = async (req, res) => {
 
         // Eliminar
         await Paciente.findByIdAndRemove({_id: req.params.id});
-        res.json({msg: 'Paciente eliminado'})
+        return res.json({msg: 'Paciente eliminado'})
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
     }
 }

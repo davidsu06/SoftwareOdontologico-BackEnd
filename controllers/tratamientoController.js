@@ -14,10 +14,10 @@ exports.iniciarTratamiento = async (req,res) => {
         let tratamiento = new Tratamiento(req.body);
         await tratamiento.save();
         
-        res.json({ msg: "Tratamiento iniciado correctamente"})
+        return res.json({ msg: "Tratamiento iniciado correctamente"})
         
     } catch (error) {
-        res.status(400).json({ msg: "Error al insertar el tratamiento"})
+       return res.status(400).json({ msg: "Error al insertar el tratamiento"})
     }
 
 }
@@ -28,7 +28,7 @@ exports.obtenerTratamientos = async (req,res) =>{
         res.json({tratamientos});
         
     } catch (error) {
-        res.status(500).send('Hubo un error'); 
+        return res.status(500).send('Hubo un error'); 
     }
 }
 
@@ -90,9 +90,9 @@ exports.actualizarTratamiento = async (req,res) =>{
 
         // Actualizar
         tratamiento = await Tratamiento.findByIdAndUpdate({_id: req.params.id}, {$set: nuevoTratamiento}, {new: true});
-        res.json({tratamiento});
+        return res.json({tratamiento});
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
     }
 }
 
@@ -108,8 +108,8 @@ exports.eliminarTratamiento = async (req, res) => {
 
         // Eliminar
         await Tratamiento.findByIdAndRemove({_id: req.params.id});
-        res.json({msg: 'Tratamiento eliminado'})
+        return res.json({msg: 'Tratamiento eliminado'})
     } catch (error) {
-        res.status(500).send('Error en el servidor');
+        return res.status(500).send('Error en el servidor');
     }
 }

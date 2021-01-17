@@ -15,21 +15,20 @@ exports.crearHistoria = async (req,res) => {
         let historias = new Historia(req.body);
         await historias.save();
         
-        res.json({ msg: "Historia Clínica creada correctamente"})
+        return res.json({ msg: "Historia Clínica creada correctamente"})
         
     } catch (error) {
-        res.status(400).json({ msg: "Error al insertar la Historia Clínica"})
+        return res.status(400).json({ msg: "Error al insertar la Historia Clínica"})
     }
-
 }
 
 exports.obtenerHistorias = async (req,res) =>{
     try {
         const historias = await Historia.find({});
-        res.json({historias});
+        return res.json({historias});
         
     } catch (error) {
-        res.status(500).send('Hubo un error');
+        return res.status(500).send('Hubo un error');
     }
 }
 
@@ -89,8 +88,8 @@ exports.modificarHistoria = async (req,res) =>{
 
         // Actualizar
         historias = await Historia.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaHistoria}, {new: true});
-        res.json({historias});
+        return res.json({historias});
     } catch (error) {
-        res.status(500).send('Error en el servidor');    
+        return res.status(500).send('Error en el servidor');    
     }
 }
